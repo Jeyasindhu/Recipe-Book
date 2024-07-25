@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <title>Recipe Book</title>
+  </head>
+  <body>
+    <!-----Navigation Bar----->
+    <div class="header">
+      <nav class="nav-bar">
+        <img src="img/logo.png" class="brand" />
+        <a href="#" class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+        <div class="menu-bar">
+          <ul>
+            <li><a href="index.html" class="home">Home</a></li>
+            <li><a href="about.html" class="home">About</a></li>
+            <li><a href="contact.html" class="home">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!--search Bar-->
+      <div class="title">Find a Recipe</div>
+      <div class="search-wrapper">
+        <div class="fa fa-search"></div>
+        <input
+          type="text"
+          name=""
+          id="search"
+          placeholder="What do you want to eat?"
+          onkeyup="search()"
+        />
+        <div class="fa fa-times" onclick="clearInput()"></div>
+      </div>
+    </div>
+    <!-- search result-->
+    <div class="result">
+      <h1>Your Search Result:</h1>
+    </div>
+
+    <!--Main Content-->
+    <div class="card-grid">
+      <div class="food-list" id="food-list">
+        <p id="none" style="display: none">
+          Regrettably, the dish you wanted is unavailable at the moment.
+        </p>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/butterchick.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Butter Chicken</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="getRecipeDetails()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/palakpaneer.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Palak Paneer</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get2ndRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/chickpea.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Chickpea Curry</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get3rdRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/AlooGobi.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Aloo-Gobi Masala</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get4thRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/Biryani.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>ChickenBiryani</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get5thRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/RedLentilCurry.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Red Lentil Curry</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get6thRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/KidneyBeanCurry.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Kidney Bean Curry</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get7thRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/TandooriChicken.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Tandoori Chicken</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get8thRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/Samosa.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Samosa</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get9thRecipe()">Get Recipe</button>
+          </div>
+        </div>
+        <div class="card card-shadow">
+          <div class="card-header card-image">
+            <img src="img/Dosa.jpeg" />
+          </div>
+          <div class="card-body">
+            <h3>Dosa</h3>
+          </div>
+          <div class="card-footer">
+            <button class="btn" onclick="get10thRecipe()">Get Recipe</button>
+          </div>
+        </div>
+      </div>
+    
+    <!--Ending of Main Content-->
+
+    <!--Receipe Details-->
+    <div class="meal-detail" id="meal-detail">
+      <!--recipe close btn-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Butter Chicken</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Butter Chicken is a rich and creamy curry featuring tender,
+            marinated chicken pieces cooked in a spiced tomato sauce enriched
+            with butter and cream. The chicken is first marinated in a mixture
+            of yogurt and spices, then cooked until perfectly charred. It's
+            simmered in a luscious sauce made with tomato puree, cream, and
+            kasuri methi (dried fenugreek leaves), giving it a unique and
+            delightful flavor. Garnished with fresh coriander, this dish is a
+            staple in Indian cuisine and beloved worldwide.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />500g boneless chicken, cut into cubes <br />1 cup yogurt
+            <br />1 tablespoon ginger-garlic paste <br />1 teaspoon red chili
+            powder <br />1 teaspoon turmeric powder <br />1 teaspoon garam
+            masala <br />Salt to taste <br />2 tablespoons butter <br />1 cup
+            tomato puree <br />1/2 cup cream <br />1 teaspoon kasuri methi
+            (dried fenugreek leaves) <br />Salt to taste
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1. In a bowl, mix together yogurt, ginger-garlic paste, red
+            chili powder, turmeric powder, garam masala, and salt. <br />2. Add
+            the chicken pieces to the marinade, ensuring they are well coated.
+            <br />3. Cover the bowl and refrigerate for at least 1 hour, or
+            ideally overnight, to allow the flavors to infuse into the chicken.
+            <br />4. Heat 1 tablespoon of butter in a pan over medium heat.
+            <br />5. Add the marinated chicken pieces and cook until they are
+            fully cooked and slightly charred, stirring occasionally. <br />6.
+            Once the chicken is cooked, remove it from the pan and set it aside.
+            <br />7. In the same pan, add the remaining 1 tablespoon of butter.
+            <br />8. Add the tomato puree and cook for about 10 minutes,
+            stirring occasionally, until the puree thickens slightly. <br />9.
+            Add the cream, kasuri methi, and salt to taste. Stir well to
+            combine. <br />10. Add the cooked chicken pieces back into the pan
+            with the sauce. <br />11. Simmer the mixture for 5-10 minutes over
+            low heat, allowing the flavors to meld together and the sauce to
+            thicken slightly. <br />12. Taste and adjust seasoning if necessary.
+            <br />Once the Butter Chicken is ready, garnish it with freshly
+            chopped coriander leaves. <br />13. Serve hot with naan bread, rice,
+            or your preferred side dish.<br />14. Enjoy your homemade Butter
+            Chicken!
+          </p>
+        </div>
+        <div class="meal-img"><img src="img/butterchick.jpeg" alt="" /></div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=D_fYk8mBaF4"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="second-meal-detail" id="second-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Palak Paneer</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Palak Paneer is a popular North Indian vegetarian dish featuring
+            paneer (Indian cottage cheese) cooked in a smooth, vibrant green
+            spinach (palak) sauce. This nutritious and flavorful dish combines
+            the mild taste of paneer with the rich, slightly tangy flavor of
+            pureed spinach, seasoned with aromatic spices. It's a favorite in
+            Indian households and restaurants, known for its striking color and
+            creamy texture.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />500g fresh spinach leaves (palak) <br />2 green chilies
+            <br />250g paneer, cubed <br />1 tablespoon oil or ghee <br />1
+            teaspoon cumin seeds <br />1 large onion, finely chopped <br />2
+            tomatoes, pureed <br />1 tablespoon ginger-garlic paste <br />1
+            teaspoon turmeric powder <br />1 teaspoon garam masala <br />1/2 cup
+            cream or yogurt <br />Salt to taste <br />Fresh cream (optional)
+            <br />Fresh coriander leaves
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1.Bring a large pot of water to a boil. <br />2. Add the
+            spinach leaves and cook for 2-3 minutes until wilted. <br />3. Drain
+            the spinach and immediately transfer it to ice-cold water to retain
+            its green color. <br />4.Drain again and blend the spinach along
+            with green chilies into a smooth puree. Set aside. <br />Heat 1
+            tablespoon of oil or ghee in a pan over medium heat. <br />6. Add
+            the paneer cubes and fry them until golden brown on all sides.
+            Remove and set aside. <br />7. In the same pan, add 2 tablespoons of
+            oil or ghee and heat it over medium heat. <br />8. Add cumin seeds
+            and let them splutter. <br />9. Add the chopped onions and cook
+            until they turn golden brown. <br />10. Add ginger-garlic paste and
+            sauté for 2 minutes until the raw smell disappears. <br />11. Add
+            tomato puree, turmeric powder, and salt. Cook until the oil
+            separates from the masala. <br />12.Add the spinach puree to the
+            masala and mix well. <br />13.Cook for 5 minutes, stirring
+            occasionally. <br />14. Add garam masala and the fried paneer cubes.
+            <br />15.Mix gently to coat the paneer with the spinach sauce.
+            <br />16. Simmer for another 5-7 minutes. <br />17. Stir in the
+            cream or yogurt and cook for an additional 2 minutes. <br />18.
+            Garnish with a drizzle of fresh cream and chopped coriander leaves
+            if desired. <br />19. Serve hot with roti, naan, or rice. <br />20.
+            Enjoy your Palak Paneer, a delightful and healthy vegetarian dish
+            that’s sure to please everyone!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="/img/palakpaneer.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=JI4DtsiYm34"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="third-meal-detail" id="third-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Chickpea Curry</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Chole, also known as Chickpea Curry, is a beloved dish from North
+            India. It features chickpeas (chole) simmered in a rich, flavorful
+            gravy made with onions, tomatoes, and an array of aromatic spices.
+            This hearty and nutritious curry is traditionally served with rice,
+            bhature (fried bread), or roti. The combination of tender chickpeas
+            and a spicy, tangy sauce makes it a favorite in Indian cuisine,
+            offering a delightful blend of textures and flavors.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />2 cups dried chickpeas (or 2 cans of chickpeas, drained and
+            rinsed) <br />Water for soaking and cooking <br />Salt to taste
+            <br />2 tablespoon oil <br />1 teaspoon cumin seeds <br />2 onion,
+            finely chopped <br />2 tomatoes, pureed<br />2 green chilies, slit
+            <br />1 tablespoon ginger-garlic paste <br />1 teaspoon turmeric
+            powder <br />1 teaspoon garam masala<br />1 teaspoon red chili
+            powder <br />1 teaspoon coriander powder <br />1 teaspoon amchur
+            (dry mango powder)<br />Salt to taste<br />Fresh coriander leaves,
+            chopped
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1. If using dried chickpeas, soak them in water overnight.
+            Drain and rinse them. <br />2. Cook the soaked chickpeas in a
+            pressure cooker with enough water and a pinch of salt until they are
+            soft and tender. If using canned chickpeas, drain and rinse them,
+            then proceed to the next step. <br />3. Heat oil in a large pan over
+            medium heat. <br />4. Add cumin seeds and let them splutter.
+            <br />5. Add chopped onions and cook until they turn golden brown.
+            <br />6. Add ginger-garlic paste and sauté for 2 minutes until the
+            raw smell disappears. <br />7. Add pureed tomatoes, turmeric powder,
+            red chili powder, and coriander powder. <br />8. Cook the mixture
+            until the oil separates from the masala. <br />9. Add the cooked
+            chickpeas to the masala and mix well. <br />10. Add garam masala and
+            amchur. Stir to combine. <br />11. Add salt to taste and simmer the
+            curry for 10-15 minutes, allowing the flavors to meld together.
+            <br />12. If the curry is too thick, you can add a little water to
+            reach the desired consistency. <br />13. Garnish the Chole with
+            freshly chopped coriander leaves. <br />14. Serve hot with rice,
+            bhature, roti, or naan. <br />15. Enjoy your Chole, a comforting and
+            flavorful dish that's perfect for a satisfying meal!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="img/chickpea.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=M-ohmJswy6A"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="fourth-meal-detail" id="fourth-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Aloo-Gobi Masala</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Aloo-Gobi Masala is a classic vegetarian dish from North India that
+            features potatoes (aloo) and cauliflower (gobi) cooked together in a
+            fragrant blend of spices. This dry curry is a staple in Indian
+            households, offering a delicious combination of tender potatoes and
+            cauliflower florets coated in a spicy, flavorful masala. It's a
+            versatile dish that can be served with roti, paratha, or rice,
+            making it a perfect option for lunch or dinner.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />2 medium potatoes, peeled and cubed <br />1 medium
+            cauliflower, cut into florets <br />2 tablespoons oil <br />1
+            teaspoon cumin seeds <br />1 large onion, finely chopped <br />2
+            tomatoes, finely chopped <br />2 green chilies, slit <br />1
+            tablespoon ginger-garlic paste <br />1 teaspoon turmeric powder
+            <br />1 teaspoon red chili powder <br />1 teaspoon coriander powder
+            <br />1 teaspoon garam masala <br />1 teaspoon cumin powder
+            <br />Salt to taste <br />Fresh coriander leaves, chopped (for
+            garnish)
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1. Heat oil in a large pan or skillet over medium heat.
+            <br />2. Add cumin seeds and let them splutter. <br />3. Add the
+            finely chopped onions to the pan and sauté until they turn golden
+            brown. <br />4. Add ginger-garlic paste and green chilies, and cook
+            for 2 minutes until the raw smell disappears. <br />5. Add the
+            chopped tomatoes and cook until they soften and the oil starts to
+            separate from the masala. <br />6. Add turmeric powder, red chili
+            powder, coriander powder, cumin powder, and salt to the pan. Mix
+            well and cook for a few minutes until the spices are well
+            incorporated. <br />7. Add the cubed potatoes to the pan and mix
+            well to coat them with the spice mixture. <br />8. Cover the pan and
+            cook for about 10 minutes, stirring occasionally to ensure even
+            cooking. <br />9. Add the cauliflower florets and mix well. Cover
+            and cook for another 10-15 minutes, or until the potatoes and
+            cauliflower are tender. <br />10. Sprinkle garam masala over the
+            cooked vegetables and mix well. <br />11. Cook for an additional 2-3
+            minutes to allow the flavors to meld together. <br />12. Garnish the
+            Aloo-Gobi Masala with freshly chopped coriander leaves. <br />13.
+            Serve hot with roti, paratha, or rice. <br />14.Enjoy your Aloo-Gobi
+            Masala, a hearty and flavorful vegetarian dish that’s sure to be a
+            hit at any meal!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="img/AlooGobi.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=VuB2LiKwVe0"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="fifth-meal-detail" id="fifth-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Chicken Biryani</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Chicken Biryani is a popular and aromatic Indian dish that combines
+            succulent pieces of chicken with basmati rice, spices, and herbs.
+            This one-pot meal is known for its rich flavors and the beautiful
+            balance between the tender chicken and fragrant rice. Traditionally
+            cooked in a layered fashion, biryani is a celebration of spices and
+            is often served on special occasions or festive gatherings.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />2 cups basmati rice 500g chicken <br />cut into pieces 2 large
+            onions<br />thinly sliced 2 tomatoes<br />chopped 1/2 cup yogurt
+            <br />2 tablespoons ginger-garlic paste 2 green chilies slit
+            <br />1/4 cup fresh coriander leaveschopped<br />1/4 cup fresh mint
+            leaves chopped <br />1 teaspoon turmeric powder <br />2 teaspoons
+            red chili powder <br />1 tablespoon garam masala <br />1 teaspoon
+            cumin seeds <br />4 cloves <br />4 green cardamom pods <br />2 bay
+            leaves <br />1-inch cinnamon stick <br />4 tablespoons oil or ghee
+            <br />1 cup fried onions (for garnish) <br />Salt to taste
+            <br />Saffron threads soaked in 1/4 cup warm milk (optional)
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1.Rinse the basmati rice under cold water until the water runs
+            clear. Soak the rice in water for 30 minutes. <br />2. Boil water in
+            a large pot, add salt, and cook the soaked rice until it is 70%
+            cooked. Drain and set aside. <br />3. In a large bowl, mix the
+            chicken pieces with yogurt, ginger-garlic paste, turmeric powder,
+            red chili powder, and salt. Marinate for at least 1 hour, or
+            preferably overnight in the refrigerator.<br />4. Heat oil or ghee
+            in a large pan over medium heat. <br />5. Add cumin seeds, cloves,
+            cardamom pods, bay leaves, and the cinnamon stick. Saute until
+            fragrant. <br />6. Add the sliced onions and cook until golden
+            brown. <br />7. Add the marinated chicken, tomatoes, green chilies,
+            coriander leaves, and mint leaves. Cook until the chicken is browned
+            and the oil starts to separate from the masala. <br />8. Add garam
+            masala and mix well. <br />9. In a large, heavy-bottomed pot or
+            Dutch oven, spread a layer of the partially cooked rice at the
+            bottom. <br />10. Add a layer of the cooked chicken with its gravy.
+            <br />11. Repeat the layers, ending with a layer of rice on top.
+            <br />12.If using, drizzle the saffron milk over the top layer of
+            rice for added flavor and color. <br />13. Cover the pot tightly
+            with a lid or aluminum foil to seal in the steam. <br />14.Place the
+            sealed pot over low heat and cook for 20-25 minutes, allowing the
+            flavors to meld and the rice to finish cooking. <br />15. Remove
+            from heat and let it rest, covered, for another 10 minutes.
+            <br />16. Fluff the rice gently with a fork.<br />17. Garnish with
+            fried onions and fresh coriander leaves. <br />18. Serve hot with
+            raita (yogurt sauce) or a simple salad. <br />19. Enjoy your Chicken
+            Biryani, a delicious and aromatic dish that's perfect for special
+            occasions or a delightful family meal!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="/img/Biryani.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=NnwFQBtKpHs"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="sixth-meal-detail" id="sixth-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Red Lentil Curry</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            PMasoor Dal, also known as Red Lentil Curry, is a comforting and
+            nutritious Indian dish made with red lentils simmered in a flavorful
+            mixture of onions, tomatoes, and aromatic spices. This hearty curry
+            is known for its simplicity and quick preparation, making it a
+            staple in many Indian households. The creamy texture of the lentils
+            combined with the warming spices creates a delicious and satisfying
+            meal, often served with rice or Indian bread like roti or naan.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />1 cup red lentils (masoor dal) <br />1 tablespoon oil or ghee
+            <br />1 teaspoon cumin seeds <br />1 large onion, finely chopped
+            <br />2 tomatoes, chopped <br />2 green chilies, slit <br />1
+            tablespoon ginger-garlic paste <br />1 teaspoon turmeric powder
+            <br />1 teaspoon red chili powder <br />1 teaspoon cumin powder
+            <br />1 teaspoon coriander powder <br />1 teaspoon garam masala
+            <br />4 cups water<br />Salt to taste <br />Fresh coriander leaves
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1. Rinse the red lentils under cold water until the water runs
+            clear. <br />2. In a large pot, add the lentils and 4 cups of water.
+            Bring to a boil, then reduce heat and simmer until the lentils are
+            soft and cooked through, about 20-25 minutes. Skim off any foam that
+            forms on the surface. Set aside.
+
+            <br />3. In a large pan, heat the oil or ghee over medium heat.
+            <br />4. Add cumin seeds and let them splutter. <br />5. Add the
+            chopped onions and cook until golden brown. <br />6. Add
+            ginger-garlic paste and green chilies, and sauté for 2 minutes until
+            the raw smell disappears. <br />7. Add chopped tomatoes, turmeric
+            powder, red chili powder, cumin powder, and coriander powder. Cook
+            until the tomatoes soften and the oil starts to separate from the
+            masala.
+
+            <br />8. Add the cooked lentils along with their cooking water to
+            the pan with the masala. Mix well. <br />9. Add salt to taste and
+            simmer for 10-15 minutes, allowing the flavors to meld together.
+            Adjust the consistency by adding more water if needed.
+
+            <br />10. Stir in garam masala and cook for an additional 2 minutes.
+            <br />11. Taste and adjust seasoning if necessary.
+
+            <br />12. Garnish the Masoor Dal with freshly chopped coriander
+            leaves. <br />13. Serve hot with steamed rice, roti, or naan.
+            <br />14. Enjoy your Masoor Dal, a delicious and nutritious red
+            lentil curry that’s perfect for a wholesome meal!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="img/RedLentilCurry.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=vCMA7BNH8z8"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="seventh-meal-detail" id="seventh-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Kidney Bean Curry</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Rajma, or Kidney Bean Curry, is a popular North Indian dish made
+            with red kidney beans simmered in a thick, flavorful tomato-based
+            gravy. This hearty and nutritious curry is known for its rich and
+            comforting taste, making it a favorite comfort food in Indian
+            households. Often served with rice (rajma chawal) or roti, Rajma is
+            a wholesome and satisfying meal that combines the protein-rich beans
+            with aromatic spices and herbs.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />2 cups dried red kidney beans (or 2 cans of kidney beans,
+            drained and rinsed) <br />Water for soaking and cooking <br />2
+            tablespoons oil or ghee <br />1 teaspoon cumin seeds <br />2 large
+            onions, finely chopped <br />2 tomatoes, pureed <br />2 green
+            chilies, slit <br />1 tablespoon ginger-garlic paste <br />1
+            teaspoon turmeric powder <br />1 teaspoon red chili powder <br />1
+            teaspoon coriander powder <br />1 teaspoon cumin powder <br />1
+            teaspoon garam masala <br />1 teaspoon amchur (dry mango powder)t
+            <br />Salt to taste <br />Fresh coriander leaves
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1. If using dried kidney beans, rinse them and soak them in
+            water overnight. Drain and rinse again. <br />2. Cook the soaked
+            beans in a pressure cooker with enough water and a pinch of salt
+            until they are soft and tender. If using canned kidney beans, drain
+            and rinse them, then proceed to the next step.
+
+            <br />3. Heat oil or ghee in a large pan over medium heat. <br />4.
+            Add cumin seeds and let them splutter. <br />5. Add the finely
+            chopped onions and sauté until they turn golden brown. <br />6. Add
+            ginger-garlic paste and green chilies, and cook for 2 minutes until
+            the raw smell disappears. <br />7. Add tomato puree, turmeric
+            powder, red chili powder, coriander powder, and cumin powder. Cook
+            the mixture until the oil separates from the masala.
+
+            <br />8. Add the cooked kidney beans to the masala and mix well.
+            <br />9. Add garam masala and amchur. Stir to combine. <br />10.Add
+            salt to taste and simmer the curry for 15-20 minutes, allowing the
+            flavors to meld together. If the curry is too thick, you can add a
+            little water to reach the desired consistency.
+
+            <br />11. Taste and adjust seasoning if necessary. <br />12. Garnish
+            the Rajma with freshly chopped coriander leaves.
+
+            <br />13. Serve hot with steamed rice (rajma chawal), roti, or naan.
+            <br />14. Enjoy your Rajma, a comforting and flavorful kidney bean
+            curry that's perfect for a hearty meal!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="img/KidneyBeanCurry.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=8IOZ7-32Q3Y"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="eighth-meal-detail" id="eighth-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Tandoori Chicken</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Tandoori Chicken is a popular Indian dish consisting of chicken
+            marinated in a mixture of yogurt and aromatic spices, then roasted
+            to perfection. Traditionally cooked in a tandoor (clay oven), the
+            chicken achieves a smoky flavor and a charred exterior while
+            remaining tender and juicy inside. The marinade, typically red due
+            to the use of chili powder and sometimes food coloring, infuses the
+            chicken with a rich, complex flavor. Tandoori Chicken is often
+            served with naan, rice, and a side of fresh salad, making it a
+            complete and satisfying meal.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />1 cup yogurt <br />2 tablespoons lemon juice <br />1
+            tablespoon ginger-garlic paste <br />1 teaspoon turmeric powder
+            <br />1 teaspoon red chili powder (adjust to taste) <br />1 teaspoon
+            garam masala <br />1 teaspoon cumin powder <br />1 teaspoon
+            coriander powder <br />1 teaspoon smoked paprika (optional, for
+            color and smokiness) <br />Salt to taste <br />Red food coloring
+            (optional, for traditional red color) <br />4-6 chicken legs or
+            thighs, skinless <br />Lemon wedges <br />Fresh coriander leaves,
+            chopped <br />Sliced onions
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1. Make deep slits in the chicken pieces to allow the marinade
+            to penetrate.
+
+            <br />2. In a large bowl, mix together the yogurt, lemon juice,
+            ginger-garlic paste, turmeric powder, red chili powder, garam
+            masala, cumin powder, coriander powder, smoked paprika (if using),
+            salt, and red food coloring (if using). <br />3. Add the chicken
+            pieces to the marinade, ensuring they are well coated. Cover and
+            refrigerate for at least 4 hours, preferably overnight for best
+            results.
+
+            <br />4. Preheat your oven to 400°F (200°C). If you have a grill
+            function, you can use it to achieve a more authentic char.
+
+            <br />5. Line a baking tray with aluminum foil and place a wire rack
+            on top. Arrange the marinated chicken pieces on the rack. <br />6.
+            Bake in the preheated oven for about 30-40 minutes, turning the
+            pieces halfway through, until the chicken is cooked through and has
+            a slight char. For a more authentic flavor, you can grill the
+            chicken on an outdoor grill or use a broiler function in your oven.
+
+            <br />7. Once cooked, remove the chicken from the oven and let it
+            rest for a few minutes. <br />8. Garnish with lemon wedges, chopped
+            coriander leaves, and sliced onions.
+
+            <br />9. Serve the Tandoori Chicken hot with naan, rice, or as part
+            of a larger Indian meal. <br />10. Enjoy your Tandoori Chicken, a
+            flavorful and aromatic dish that’s sure to be a hit with family and
+            friends!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="img/TandooriChicken.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=8KTtVA8luJU"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="nine-meal-detail" id="nine-meal-detail">
+      <!--recipe close button-->
+      <button
+        type="button"
+        class="btn recipe-close-btn"
+        id="recipe-close-btn"
+        onclick="closeBtn()"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!--recipe details-->
+      <div class="meal-content">
+        <h2 class="meal-name">Samosa</h2>
+        <div class="meal-about">
+          <h3 class="meal-title-about">About Meal</h3>
+          <p class="meal-descript-about">
+            Samosa is a popular Indian snack consisting of a crisp, flaky pastry
+            filled with a savory mixture of spiced potatoes, peas, and sometimes
+            meat. This triangular-shaped delicacy is deep-fried to golden
+            perfection, making it irresistibly crunchy on the outside and
+            deliciously flavorful on the inside. Samosas are often served with
+            chutneys such as mint or tamarind and are a favorite at parties,
+            street stalls, and as an appetizer in Indian cuisine.
+          </p>
+        </div>
+        <div class="meal-instruct">
+          <h3>Ingredients:</h3>
+          <p>
+            <br />2 cups all-purpose flour <br />1/4 cup oil or ghee <br />1/2
+            teaspoon salt <br />Water (as needed)
+
+            <br />3 large potatoes, boiled, peeled, and mashed <br />1/2 cup
+            green peas (fresh or frozen) <br />1 tablespoon oil <br />1 teaspoon
+            cumin seeds <br />1 teaspoon mustard seeds (optional) <br />1 onion,
+            finely chopped <br />2 green chilies, finely chopped <br />1
+            tablespoon ginger-garlic paste <br />1 teaspoon turmeric powder
+            <br />1 teaspoon coriander powder <br />1 teaspoon garam masala
+            <br />1 teaspoon amchur (dry mango powder) or 1 tablespoon lemon
+            juice <br />Salt to taste <br />Fresh coriander leaves, chopped
+
+            <br />Oil for deep frying
+          </p>
+          <h3>Instruction:</h3>
+          <p>
+            <br />1. In a large bowl, mix the all-purpose flour and salt.
+            <br />2. Add the oil or ghee and rub it into the flour until the
+            mixture resembles coarse crumbs. <br />3. Gradually add water, a
+            little at a time, and knead to form a firm, smooth dough. <br />4.
+            Cover the dough with a damp cloth and let it rest for 30 minutes.
+
+            <br />5. Heat oil in a pan over medium heat. <br />6. Add cumin
+            seeds and mustard seeds (if using) and let them splutter. <br />7.
+            Add the chopped onions and sauté until golden brown. <br />8. Add
+            the green chilies and ginger-garlic paste, and cook for 2 minutes
+            until the raw smell disappears. <br />9. Add the peas and cook for
+            another 2-3 minutes. <br />10. Add the mashed potatoes, turmeric
+            powder, coriander powder, garam masala, amchur (or lemon juice), and
+            salt. Mix well to combine. <br />11. Cook for a few more minutes,
+            stirring occasionally, until the mixture is well heated and the
+            spices are blended. <br />12. Stir in the chopped coriander leaves
+            and remove from heat. Let the filling cool.
+
+            <br />13. Divide the dough into equal portions and roll each portion
+            into a ball. <br />14. Roll out each ball into an oval or circle,
+            about 6 inches in diameter. <br />15. Cut the rolled dough in half
+            to form two semi-circles. <br />16. Take one semi-circle and fold it
+            into a cone shape, sealing the edge with a little water. <br />17.
+            Fill the cone with 1-2 tablespoons of the potato filling. <br />18.
+            Seal the top edge of the cone by pinching the edges together,
+            ensuring there are no gaps. Repeat with the remaining dough and
+            filling.
+
+            <br />19. Heat oil in a deep frying pan over medium heat. <br />20.
+            Once the oil is hot, carefully add the samosas in batches and fry
+            until they are golden brown and crispy on all sides. <br />21.
+            Remove the fried samosas with a slotted spoon and drain on paper
+            towels.
+
+            <br />22. Serve the hot samosas with mint chutney, tamarind chutney,
+            or your favorite dipping sauce. <br />23. Enjoy your Samosas, a
+            delightful and savory snack that’s perfect for any occasion!
+          </p>
+        </div>
+        <div class="meal-img">
+          <img src="img/Samosa.jpeg" alt="" />
+        </div>
+        <div class="meal-link">
+          <a
+            href="https://www.youtube.com/watch?v=3OZn-iCGf5s"
+            class="meal-link-btn"
+            >Watch Video</a
+          >
+        </div>
+      </div>
+    </div>
+  
+    <div class="ten-meal-detail" id="ten-meal-detail">
+    <!--recipe close button-->
+    <button
+      type="button"
+      class="btn recipe-close-btn"
+      id="recipe-close-btn"
+      onclick="closeBtn()"
+    >
+      <i class="fas fa-times"></i>
+    </button>
+
+    <!--recipe details-->
+    <div class="meal-content">
+      <h2 class="meal-name">Dosa</h2>
+      <div class="meal-about">
+        <h3 class="meal-title-about">About Meal</h3>
+        <p class="meal-descript-about">
+          Dosa is a traditional South Indian dish that resembles a thin, crispy
+          pancake made from a fermented batter of rice and urad dal (black gram
+          lentils). It is renowned for its delicate texture and slightly tangy
+          flavor due to the fermentation process. Dosas are typically served hot
+          with a variety of accompaniments such as sambar (a lentil-based
+          vegetable stew) and coconut chutney. They are a staple breakfast item
+          in South India but are enjoyed at any time of the day across India and
+          around the world.
+        </p>
+      </div>
+      <div class="meal-instruct">
+        <h3>Ingredients:</h3>
+        <p>
+          <br />2 cups rice (preferably parboiled rice) <br />1 cup urad dal
+          (split black gram lentils) <br />1/2 teaspoon fenugreek seeds
+          <br />Water (for soaking and grinding) <br />Salt to taste
+
+          <br />Oil or ghee (for cooking the dosas)
+        </p>
+        <h3>Instruction:</h3>
+        <p>
+          <br />1. Rinse the rice and urad dal separately under cold water until
+          the water runs clear. <br />2. Soak the rice and fenugreek seeds in
+          one bowl and the urad dal in another bowl with enough water for at
+          least 4-6 hours, or overnight.
+
+          <br />3. Drain the soaked urad dal and grind it to a smooth and fluffy
+          batter, adding a little water as needed. <br />4. Drain the soaked
+          rice and fenugreek seeds and grind them to a smooth batter, adding
+          water as needed. <br />5. Combine both batters in a large bowl, mix
+          well, and add salt to taste. <br />6. Cover the bowl and let the
+          batter ferment in a warm place for 8-12 hours or overnight until it
+          doubles in volume and becomes slightly frothy.
+
+          <br />7. Stir the fermented batter gently. If it is too thick, add a
+          little water to achieve a pourable consistency. <br />8. Heat a
+          non-stick skillet or a traditional cast-iron dosa tawa (griddle) over
+          medium-high heat. <br />9. Once hot, drizzle a few drops of oil and
+          spread it with a cloth or paper towel to lightly grease the surface.
+          <br />10. Pour a ladleful of batter in the center of the tawa and
+          quickly spread it out in a circular motion with the back of the ladle
+          to form a thin, even layer. <br />11. Drizzle a few drops of oil or
+          ghee around the edges and on top of the dosa. <br />12. Cook until the
+          dosa turns golden brown and crispy. Flip if you prefer it cooked on
+          both sides, although traditional dosas are usually cooked on one side
+          only.
+
+          <br />13. Serve the hot dosa immediately with sambar, coconut chutney,
+          or any other preferred accompaniments. <br />14. Enjoy your Dosa, a
+          delicious and crispy South Indian delight that's perfect for any meal!
+        </p>
+      </div>
+      <div class="meal-img">
+        <img src="img/Dosa.jpeg" alt="" />
+      </div>
+      <div class="meal-link">
+        <a
+          href="https://www.youtube.com/watch?v=iT4YJV2tx1w"
+          class="meal-link-btn"
+          >Watch Video</a>
+      </div>
+    </div>
+    </div>
+
+    <div class="footer">
+      <div class="social-btn">
+            <a href="https://www.facebook.com" target="_blank" ><i class="	fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com" target="_blank" ><i class="	fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/jeya-sindhu-rindhiya-ulaganathan-8657a0135/?originalSubdomain=in" target="_blank"><i class="	fab fa-linkedin"></i></a>
+            <a href="https://github.com" target="_blank" "><i class="	fab fa-github"></i></a>
+      </div>
+        <div class="quick-bar">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+        </div>
+        <p>Copyright &copy; 2024 Jeya Sindhu Rindhiya. All right reserved</p>
+    </div>
+    </div>
+    <script src="style.js"></script>
+  </body>
+</html>
